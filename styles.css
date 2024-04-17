@@ -13,3 +13,12 @@
 .btn-secondary{
     height: 8vh;
 }
+
+#formulario{
+    width: 60vw;
+}
+@media only screen and (max-width: 992px){
+    #formulario{
+        width: 95vw;
+    }
+}
