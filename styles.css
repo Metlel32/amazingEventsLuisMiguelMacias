@@ -1,10 +1,15 @@
-*{
-    margin: 0;
-    padding: 0;
-    
+.carousel-item{
+    height: 40vh;
 }
-
+.carousel-item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .carousel-inner{
-    height: 30vh;
+    max-height: 40vh;
 }
 
+.btn-secondary{
+    height: 8vh;
+}
