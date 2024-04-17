@@ -1,4 +1,10 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
 
 .carousel-inner{
     height: 30vh;
 }
+
