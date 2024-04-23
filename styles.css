@@ -15,5 +15,6 @@
 }
 #container-2{
     height: 100vh;
-    padding: 3vw
+    padding: 3vw;
+    margin-top: 3vh;
 }
