@@ -215,7 +215,7 @@ function recorrerArray(arreglo, padreDiv){
     nuevaTarjeta.id = `${arr._id}`
     nuevaTarjeta.style.width = "18rem";
 
-    nuevaTarjeta.innerHTML = `<img src="${arr.image}" class="card-img-top h-100 " alt="${arr.name}">
+    nuevaTarjeta.innerHTML = `<img src="${arr.image}" class="card-img-top imagenH"  alt="${arr.name}">
     <div class="card-body">
         <h5 class="card-title">${arr.name}</h5>
         <p class="card-text"><small class="text-body-secondary">${arr.date}</small></p>
@@ -223,7 +223,7 @@ function recorrerArray(arreglo, padreDiv){
         
         
     </div>
-    <div class="card-body d-flex justify-content-between">
+    <div class="card-footer d-flex justify-content-between">
         <h5 class="p-2">$ ${arr.price}</h5>
         <a href="/details.html" class="btn btn-secondary btn-lg">Details</a>
     </div>`

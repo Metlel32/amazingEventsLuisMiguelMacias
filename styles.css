@@ -9,12 +9,12 @@
 .carousel-inner{
     max-height: 40vh;
 }
-
-.btn-secondary{
-    height: 8vh;
-}
 #container-2{
     height: 100vh;
     padding: 3vw;
     margin-top: 3vh;
+}
+.imagenH{
+    height: 40vh;
+    object-fit: cover;
 }

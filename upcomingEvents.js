@@ -202,7 +202,7 @@ function creaTarjeta(padre, arr){
     nuevaTarjeta.id = `${arr._id}`
     nuevaTarjeta.style.width = "18rem";
 
-    nuevaTarjeta.innerHTML = `<img src="${arr.image}" class="card-img-top h-100 " alt="${arr.name}">
+    nuevaTarjeta.innerHTML = `<img src="${arr.image}" class="card-img-top imagenH " alt="${arr.name}">
     <div class="card-body">
         <h5 class="card-title">${arr.name}</h5>
         <p class="card-text"><small class="text-body-secondary">${arr.date}</small></p>
