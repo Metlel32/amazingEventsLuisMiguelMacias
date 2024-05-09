@@ -1,5 +1,3 @@
-
-//array sprint
 const data = {
     currentDate: "2023-01-01",
     events: [
@@ -197,19 +195,8 @@ const data = {
     ],
   };
 
-  padreTarjeta = document.getElementById('padreTarjeta')
-  let arrayRec = data.events
-  recorrerArray(arrayRec, padreTarjeta)
-// recorrer el objeto y ejecutar la funcion de crear tarjetas
-function recorrerArray(arreglo, padreDiv){
-  for (let i = 0; i < arreglo.length; i++) {
-    creaTarjeta(padreDiv, arreglo[i])
-  }
-}
-
-//crear tarjetas
-
-  function creaTarjeta(padre, arr){
+//function crear tarjetas
+function creaTarjeta(padre, arr){
     let nuevaTarjeta = document.createElement('div')
     nuevaTarjeta.className = "card col-3 mb-5"
     nuevaTarjeta.id = `${arr._id}`
@@ -230,4 +217,15 @@ function recorrerArray(arreglo, padreDiv){
     padre.appendChild(nuevaTarjeta);
   }
 
-  
+
+// fuction crear tarjetas futuras
+let divPadre = document.getElementById("padreTarjeta")
+let array = data.events
+recorrerArray(array, divPadre)
+function recorrerArray(array1, divPadre){
+    for (let i = 0; i < array1.length; i++) {
+        if(array1[i].date >= data.currentDate){
+            creaTarjeta(divPadre, array1[i])
+        }
+    }
+}
