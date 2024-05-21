@@ -230,4 +230,53 @@ function recorrerArray(arreglo, padreDiv){
     padre.appendChild(nuevaTarjeta);
   }
 
+// crear checkbox
+
+let padreCheck = document.getElementById("fatherCheck")
+
+
+function crearCheckbox(divCheck, objt) {
   
+  let input = document.createElement('input')
+  input.type = `checkbox`
+  input.name = objt.name
+  input.classList.add("me-1")
+  input.id = objt._id
+
+  let label = document.createElement('label')
+  label.htmlFor = objt._id
+  label.className = "me-4"
+  label.textContent = objt.category
+  divCheck.appendChild(input);
+  divCheck.appendChild(label)
+} 
+
+
+
+//recorrer el array y buscar categorias
+
+let categorias = []
+arrayRec.forEach( (e, i) => {
+  if (!categorias.includes(e.category)) {
+    categorias.push(e.category)
+    //console.log(i);
+    crearCheckbox(padreCheck, arrayRec[i])
+  }
+})
+
+
+// barra de busqueda
+
+let buscar = document.getElementById("search")
+buscar.addEventListener("keyup", (e)=>{
+  console.log(e);
+
+
+  let arrayBusqueda = arrayRec.filter( letra => letra.name.toLowerCase().includes(e.target.value.toLowerCase())|| letra.description.toLowerCase().includes(e.target.value.toLowerCase()) )
+  console.log(arrayBusqueda);
+  padreTarjeta.innerHTML = ""
+  arrayBusqueda.forEach((ele) => creaTarjeta(padreTarjeta, ele))
+})
+
+
+
