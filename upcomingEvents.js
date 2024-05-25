@@ -233,6 +233,7 @@ function recorrerArray(array1, divPadre) {
 
 
 
+
 //recorrer el array de eventos futuros o presentes
 
 let arrayFuturos = array.filter((e) => {
@@ -242,27 +243,16 @@ let arrayFuturos = array.filter((e) => {
 })
 let divCheck = document.getElementById("divCheck")
 
-
 // crear los chechbox
-arrayFuturos.forEach((e) => {
 
-  let input = document.createElement("input")
-  input.type = "checkbox"
-  input.classList.add("me-1")
-  input.name = e.category
-  input.id = e._id
-
-
-
-  divCheck.appendChild(input)
-
-  let label = document.createElement("label")
-  label.htmlFor = e._id
-  label.className = "me-4"
-  label.textContent = e.category
-
-  divCheck.appendChild(label)
+let categorias = []
+arrayFuturos.forEach((e, i) => {
+  if (!categorias.includes(e.category)) {
+    categorias.push(e.category)
+    crearCheckbox(divCheck, arrayFuturos[i])
+  }
 })
+
 
 
 function crearCheckbox(divCheck, objt) {
@@ -276,70 +266,65 @@ function crearCheckbox(divCheck, objt) {
   let label = document.createElement('label')
   label.htmlFor = objt._id
   label.className = "me-4"
-  label.textContent = objt.category
+  label.textContent = objt.name
   divCheck.appendChild(input);
   divCheck.appendChild(label)
 }
 
+ // barra de busqueda
 
-let categorias = []
-arrayFuturos.forEach((e, i) => {
-  if (!categorias.includes(e.category)) {
-    categorias.push(e.category)
-    crearCheckbox(divPadre, arrayFuturos[i])
-  }
-})
+ let buscar = document.getElementById("search")
+ buscar.addEventListener("keyup", (e) => {
+   filtrarTarjetas(arrayFuturos)
+ })
+ 
+ // los chechkbox b pro checked
+ 
+ divCheck.addEventListener("change", () => {
+   filtrarTarjetas(arrayFuturos)
+ })
+ 
+ 
+ 
+ //filtrar el texto y los checked
+ 
+ function filtrarTarjetas(array) {
+   let textoBusqueda = buscar.value.toLowerCase()
+   let categoriasAA = arrayCheck(array)
+ 
+   let tarjetasFiltradas = array.filter(tarjeta => {
+     let cumpleBusqueda = tarjeta.name.toLowerCase().includes(textoBusqueda) || tarjeta.description.toLowerCase().includes(textoBusqueda)
+     let cumpleCategoria = categoriasAA.length === 0 || categoriasAA.includes(tarjeta.category)
+     return cumpleBusqueda && cumpleCategoria
+   });
+ 
+   if (tarjetasFiltradas.length === 0) {
+     divPadre.innerHTML = "<h2 class='text-center'>Error en la busqueda, escriba nuevamente sus parametros</h2>"
+   } else {
+     divPadre.innerHTML = ""
+     tarjetasFiltradas.forEach((tarjeta) => creaTarjeta(divPadre, tarjeta))
+   }
+ }
+ 
+ 
+ // filtadro de las tarjetas por categoria si dos tarjetas tienen la misma categoria 
+ function arrayCheck(array) {
+   let categoriasAA = []
+   let check = document.querySelectorAll("input[type=checkbox]:checked")
+   check.forEach((checkbox) => {
+     let elemento = array.find((e) => e._id === checkbox.id)
+     if (elemento && elemento.category) {
+       categoriasAA.push(elemento.category)
+     }
+   });
+   return categoriasAA
+ }
+ 
+ 
 
 
 
-// barra de busqueda
 
-let buscar = document.getElementById("search")
-buscar.addEventListener("keyup", (e) => {
-  filtrarTarjetas(arrayFuturos)
-})
-
-// los chechkbox b pro checked
-
-divPadre.addEventListener("change", () => {
-  filtrarTarjetas(arrayFuturos)
-})
-
-
-
-//filtrar el texto y los checked
-
-function filtrarTarjetas(array) {
-  let textoBusqueda = buscar.value.toLowerCase()
-  let categoriasAA = arrayCheck(array)
-
-  let tarjetasFiltradas = array.filter(tarjeta => {
-    let cumpleBusqueda = tarjeta.name.toLowerCase().includes(textoBusqueda) || tarjeta.description.toLowerCase().includes(textoBusqueda)
-    let cumpleCategoria = categoriasAA.length === 0 || categoriasAA.includes(tarjeta.category)
-    return cumpleBusqueda && cumpleCategoria
-  });
-
-  if (tarjetasFiltradas.length === 0) {
-    divPadre.innerHTML = "<h2 class='text-center'>Error en la busqueda, escriba nuevamente sus parametros</h2>"
-  } else {
-    divPadre.innerHTML = ""
-    tarjetasFiltradas.forEach((tarjeta) => creaTarjeta(divPadre, tarjeta))
-  }
-}
-
-
-// filtadro de las tarjetas por categoria si dos tarjetas tienen la misma categoria 
-function arrayCheck(array) {
-  let categoriasAA = []
-  let check = document.querySelectorAll("input[type=checkbox]:checked")
-  check.forEach((checkbox) => {
-    let elemento = array.find((e) => e._id === checkbox.id)
-    if (elemento && elemento.category) {
-      categoriasAA.push(elemento.category)
-    }
-  });
-  return categoriasAA
-}
 
 
 //para ir a details

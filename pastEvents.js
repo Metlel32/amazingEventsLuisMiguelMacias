@@ -263,10 +263,13 @@ array.forEach((e, i) => {
 
 // recorre el array en past event solo eventos pasados y hace la funcion crearcheck solo para eventos pasados
 
-for (let i = 0; i < arrayPast.length; i++) {
-  crearCheck(divCheck, arrayPast[i])
-}
-
+let categorias = []
+arrayPast.forEach((e, i) => {
+  if (!categorias.includes(e.category)) {
+    categorias.push(e.category)
+    crearCheck(divCheck, arrayPast[i])
+  }
+})
 
 
 
@@ -280,7 +283,7 @@ buscar.addEventListener("keyup", (e) => {
 
 // los chechkbox b pro checked
 
-padreCheck.addEventListener("change", () => {
+divCheck.addEventListener("change", () => {
   filtrarTarjetas(arrayPast)
 })
 
