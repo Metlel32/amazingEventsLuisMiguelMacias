@@ -212,7 +212,7 @@ function creaTarjeta(padre, arr) {
     </div>
     <div class="card-footer d-flex justify-content-between">
         <h5 class="p-2">$ ${arr.price}</h5>
-        <a href="/details.html" class="btn btn-secondary btn-lg">Details</a>
+        <a href="#" onclick="obtenerElementoUrl('${arr._id}')" class="btn btn-secondary btn-lg">Details</a>
     </div>`
   padre.appendChild(nuevaTarjeta);
 }
@@ -249,7 +249,6 @@ function crearCheck(div, array) {
 
   div.appendChild(input)
   div.appendChild(label)
-  // console.log(label);
 }
 
 // crear el array de eventos pasados
@@ -261,13 +260,74 @@ array.forEach( (e, i) =>{
   }
 })
 
-// console.log(arrayPast);
 
 // recorre el array en past event solo eventos pasados y hace la funcion crearcheck solo para eventos pasados
 
 for (let i = 0; i < arrayPast.length; i++) {
   crearCheck(divCheck, arrayPast[i])
 }
-/*
-<input type="checkbox" name="category" id="category1" >
-  <label for="category1" class="me-2">Food Fair</label> */
+
+
+
+
+
+
+//barra de busqueda
+let buscarl = document.getElementById("search")
+
+buscarl.addEventListener("keyup", (e)=>{
+
+  let arrayBusqueda = arrayPast.filter( letra => letra.name.toLowerCase().includes(e.target.value.toLowerCase())|| letra.description.toLowerCase().includes(e.target.value.toLowerCase()) )
+  padreTarjeta.innerHTML = ""
+  arrayBusqueda.forEach((ele) => creaTarjeta(padreTarjeta, ele))
+})
+
+
+
+
+//barra check true
+
+divCheck.addEventListener("change", (ele)=>{
+   
+  let categoriasAA =[]
+  let check = document.querySelectorAll("input[type=checkbox]:checked")
+  
+  check.forEach((checkbox) => {
+    let elemento = arrayPast.find((e) => e._id === checkbox.id);
+    if (elemento && elemento.category) {
+      categoriasAA.push(elemento.category)
+    }
+  })
+
+  // imprime tarjetas guaradads en el array de categorias
+  padreTarjeta.innerHTML = ""
+    categoriasAA.forEach( categoria => {
+    //verifica si la categoria la tiene otro elemnto de  array categorias
+      for (let i = 0; i < arrayPast.length; i++) {
+        if(arrayPast[i].category === categoria){
+          creaTarjeta(padreTarjeta, arrayPast[i])
+        }
+      
+      }
+    })
+
+    //si no hay nodos 
+   if(check.length == 0){
+
+      arrayPast.forEach( tarjeta => {
+      creaTarjeta(padreTarjeta, tarjeta)
+    })
+  }
+  
+})
+
+//ir a la pagina details con el id
+
+let urlDetails = new URL("http://127.0.0.1:5500/details.html")
+
+
+function obtenerElementoUrl(id) {
+  let ancor = document.getElementById(id)
+  ancor.href =  urlDetails + "?value="+id
+  window.location.href = ancor.href
+}

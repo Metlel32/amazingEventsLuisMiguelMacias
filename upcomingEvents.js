@@ -212,7 +212,7 @@ function creaTarjeta(padre, arr) {
     </div>
     <div class="card-footer d-flex justify-content-between">
         <h5 class="p-2">$ ${arr.price}</h5>
-        <a href="/details.html" class="btn btn-secondary btn-lg">Details</a>
+        <a href="#" onclick="obtenerElementoUrl('${arr._id}')" class="btn btn-secondary btn-lg">Details</a>
     </div>`
   padre.appendChild(nuevaTarjeta);
 }
@@ -262,8 +262,60 @@ arrayFuturos.forEach((e) => {
   divCheck.appendChild(label)
 })
 
-  /* < input type = "checkbox" name = "category" id = "category1" >
-  <label for="category1" class="me-2">Food Fair</label>
-  */
+// barra de busqueda
 
 
+let buscar = document.getElementById("search")
+buscar.addEventListener("keyup", (e)=>{
+
+  
+  let arrayBusqueda = arrayFuturos.filter( letra => letra.name.toLowerCase().includes(e.target.value.toLowerCase())|| letra.description.toLowerCase().includes(e.target.value.toLowerCase()) )
+  padreTarjeta.innerHTML = ""
+  arrayBusqueda.forEach((ele) => creaTarjeta(padreTarjeta, ele))
+})
+
+
+
+
+
+//chechk true
+
+divCheck.addEventListener("change", ()=>{
+   
+  let categoriasAA =[]
+  let check = document.querySelectorAll("input[type=checkbox]:checked")
+  
+  check.forEach((checkbox) => {
+    let elemento = arrayFuturos.find((e) => e._id === checkbox.id);
+    if (elemento && elemento.category) {
+      categoriasAA.push(elemento.category)
+    }
+  })
+
+  // imprime tarjetas guaradads en el array de categorias
+  padreTarjeta.innerHTML = ""
+   categoriasAA.forEach( categoria => {
+    for (let i = 0; i < arrayFuturos.length; i++) {
+      if(arrayFuturos[i].category === categoria){
+          creaTarjeta(padreTarjeta, arrayFuturos[i])
+      }
+      
+    }
+   })
+   if(check.length == 0){
+      arrayFuturos.forEach( tarjeta => {
+      creaTarjeta(padreTarjeta, tarjeta)
+    })
+  }
+  
+})
+
+//para ir a details
+let urlDetails = new URL("http://127.0.0.1:5500/details.html")
+
+
+function obtenerElementoUrl(id) {
+  let ancor = document.getElementById(id)
+  ancor.href =  urlDetails + "?value="+id
+  window.location.href = ancor.href
+}
