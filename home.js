@@ -288,13 +288,22 @@ let buscar = document.getElementById("search")
 buscar.addEventListener("keyup", (e) => {
 
   let arrayBusqueda = buscar2(e, arrayRec)
-  padreTarjeta.innerHTML = ""
-  arrayBusqueda.forEach((ele) => creaTarjeta(padreTarjeta, ele))
+  
+  if (arrayBusqueda.length === 0) {
+    padreTarjeta.innerHTML = "<h2>Error en la busqueda, escriba nuevamente sus parametros</h2>"
+  }else{
+    padreTarjeta.innerHTML = ""
+    arrayBusqueda.forEach((ele) => creaTarjeta(padreTarjeta, ele))
+  }
 
+
+  
 })
 
 function buscar2(texto, array) {
   let arrayBusquedaFiltrado = array.filter(letra => letra.name.toLowerCase().includes(texto.target.value.toLowerCase()) || letra.description.toLowerCase().includes(texto.target.value.toLowerCase()))
+  
+
   return arrayBusquedaFiltrado
 }
 
