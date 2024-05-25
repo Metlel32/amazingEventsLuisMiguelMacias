@@ -254,8 +254,8 @@ function crearCheck(div, array) {
 // crear el array de eventos pasados
 
 let arrayPast = []
-array.forEach( (e, i) =>{
-  if(e.date < data.currentDate){
+array.forEach((e, i) => {
+  if (e.date < data.currentDate) {
     arrayPast.push(e)
   }
 })
@@ -271,60 +271,54 @@ for (let i = 0; i < arrayPast.length; i++) {
 
 
 
+// barra de busqueda
 
-//barra de busqueda
-let buscarl = document.getElementById("search")
+let buscar = document.getElementById("search")
+buscar.addEventListener("keyup", (e) => {
+  filtrarTarjetas(arrayPast)
+})
 
-buscarl.addEventListener("keyup", (e)=>{
+// los chechkbox b pro checked
 
-  let arrayBusqueda = arrayPast.filter( letra => letra.name.toLowerCase().includes(e.target.value.toLowerCase())|| letra.description.toLowerCase().includes(e.target.value.toLowerCase()) )
-  if (arrayBusqueda.length === 0) {
-    padreTarjeta.innerHTML = "<h2 class='text-center'>Error en la busqueda, escriba nuevamente sus parametros</h2>"
-  }else{
-    padreTarjeta.innerHTML = ""
-    arrayBusqueda.forEach((ele) => creaTarjeta(padreTarjeta, ele))
-  }
-
+padreCheck.addEventListener("change", () => {
+  filtrarTarjetas(arrayPast)
 })
 
 
+//filtrar el texto y los checked
+
+function filtrarTarjetas(array) {
+  let textoBusqueda = buscar.value.toLowerCase()
+  let categoriasAA = arrayCheck(array)
+
+  let tarjetasFiltradas = array.filter(tarjeta => {
+    let cumpleBusqueda = tarjeta.name.toLowerCase().includes(textoBusqueda) || tarjeta.description.toLowerCase().includes(textoBusqueda)
+    let cumpleCategoria = categoriasAA.length === 0 || categoriasAA.includes(tarjeta.category)
+    return cumpleBusqueda && cumpleCategoria
+  });
+
+  if (tarjetasFiltradas.length === 0) {
+    padreTarjeta.innerHTML = "<h2 class='text-center'>Error en la busqueda, escriba nuevamente sus parametros</h2>"
+  } else {
+    padreTarjeta.innerHTML = ""
+    tarjetasFiltradas.forEach((tarjeta) => creaTarjeta(padreTarjeta, tarjeta))
+  }
+}
 
 
-//barra check true
-
-divCheck.addEventListener("change", (ele)=>{
-   
-  let categoriasAA =[]
+// filtadro de las tarjetas por categoria si dos tarjetas tienen la misma categoria 
+function arrayCheck(array) {
+  let categoriasAA = []
   let check = document.querySelectorAll("input[type=checkbox]:checked")
-  
   check.forEach((checkbox) => {
-    let elemento = arrayPast.find((e) => e._id === checkbox.id);
+    let elemento = array.find((e) => e._id === checkbox.id)
     if (elemento && elemento.category) {
       categoriasAA.push(elemento.category)
     }
-  })
+  });
+  return categoriasAA
+}
 
-  // imprime tarjetas guaradads en el array de categorias
-  padreTarjeta.innerHTML = ""
-    categoriasAA.forEach( categoria => {
-    //verifica si la categoria la tiene otro elemnto de  array categorias
-      for (let i = 0; i < arrayPast.length; i++) {
-        if(arrayPast[i].category === categoria){
-          creaTarjeta(padreTarjeta, arrayPast[i])
-        }
-      
-      }
-    })
-
-    //si no hay nodos 
-   if(check.length == 0){
-
-      arrayPast.forEach( tarjeta => {
-      creaTarjeta(padreTarjeta, tarjeta)
-    })
-  }
-  
-})
 
 //ir a la pagina details con el id
 
@@ -333,6 +327,6 @@ let urlDetails = new URL("http://127.0.0.1:5500/details.html")
 
 function obtenerElementoUrl(id) {
   let ancor = document.getElementById(id)
-  ancor.href =  urlDetails + "?value="+id
+  ancor.href = urlDetails + "?value=" + id
   window.location.href = ancor.href
 }

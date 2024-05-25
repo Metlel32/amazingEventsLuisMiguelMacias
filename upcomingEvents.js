@@ -231,6 +231,8 @@ function recorrerArray(array1, divPadre) {
 }
 
 
+
+
 //recorrer el array de eventos futuros o presentes
 
 let arrayFuturos = array.filter((e) => {
@@ -238,8 +240,8 @@ let arrayFuturos = array.filter((e) => {
     return e
   }
 })
-// console.log(arrayFuturos);
 let divCheck = document.getElementById("divCheck")
+
 
 // crear los chechbox
 arrayFuturos.forEach((e) => {
@@ -262,58 +264,83 @@ arrayFuturos.forEach((e) => {
   divCheck.appendChild(label)
 })
 
-// barra de busqueda
+
+function crearCheckbox(divCheck, objt) {
+
+  let input = document.createElement('input')
+  input.type = `checkbox`
+  input.name = objt.name
+  input.classList.add("me-1", "checksHome")
+  input.id = objt._id
+
+  let label = document.createElement('label')
+  label.htmlFor = objt._id
+  label.className = "me-4"
+  label.textContent = objt.category
+  divCheck.appendChild(input);
+  divCheck.appendChild(label)
+}
 
 
-let buscar = document.getElementById("search")
-buscar.addEventListener("keyup", (e)=>{
-
-
-  let arrayBusqueda = arrayFuturos.filter( letra => letra.name.toLowerCase().includes(e.target.value.toLowerCase())|| letra.description.toLowerCase().includes(e.target.value.toLowerCase()) )
- 
-  if (arrayBusqueda.length === 0) {
-    padreTarjeta.innerHTML = "<h2 class='text-center'>Error en la busqueda, escriba nuevamente sus parametros</h2>"
-  }else{
-    padreTarjeta.innerHTML = ""
-    arrayBusqueda.forEach((ele) => creaTarjeta(padreTarjeta, ele))
+let categorias = []
+arrayFuturos.forEach((e, i) => {
+  if (!categorias.includes(e.category)) {
+    categorias.push(e.category)
+    crearCheckbox(divPadre, arrayFuturos[i])
   }
 })
 
 
 
+// barra de busqueda
+
+let buscar = document.getElementById("search")
+buscar.addEventListener("keyup", (e) => {
+  filtrarTarjetas(arrayFuturos)
+})
+
+// los chechkbox b pro checked
+
+divPadre.addEventListener("change", () => {
+  filtrarTarjetas(arrayFuturos)
+})
 
 
-//chechk true
 
-divCheck.addEventListener("change", ()=>{
-   
-  let categoriasAA =[]
+//filtrar el texto y los checked
+
+function filtrarTarjetas(array) {
+  let textoBusqueda = buscar.value.toLowerCase()
+  let categoriasAA = arrayCheck(array)
+
+  let tarjetasFiltradas = array.filter(tarjeta => {
+    let cumpleBusqueda = tarjeta.name.toLowerCase().includes(textoBusqueda) || tarjeta.description.toLowerCase().includes(textoBusqueda)
+    let cumpleCategoria = categoriasAA.length === 0 || categoriasAA.includes(tarjeta.category)
+    return cumpleBusqueda && cumpleCategoria
+  });
+
+  if (tarjetasFiltradas.length === 0) {
+    divPadre.innerHTML = "<h2 class='text-center'>Error en la busqueda, escriba nuevamente sus parametros</h2>"
+  } else {
+    divPadre.innerHTML = ""
+    tarjetasFiltradas.forEach((tarjeta) => creaTarjeta(divPadre, tarjeta))
+  }
+}
+
+
+// filtadro de las tarjetas por categoria si dos tarjetas tienen la misma categoria 
+function arrayCheck(array) {
+  let categoriasAA = []
   let check = document.querySelectorAll("input[type=checkbox]:checked")
-  
   check.forEach((checkbox) => {
-    let elemento = arrayFuturos.find((e) => e._id === checkbox.id);
+    let elemento = array.find((e) => e._id === checkbox.id)
     if (elemento && elemento.category) {
       categoriasAA.push(elemento.category)
     }
-  })
+  });
+  return categoriasAA
+}
 
-  // imprime tarjetas guaradads en el array de categorias
-  padreTarjeta.innerHTML = ""
-   categoriasAA.forEach( categoria => {
-    for (let i = 0; i < arrayFuturos.length; i++) {
-      if(arrayFuturos[i].category === categoria){
-          creaTarjeta(padreTarjeta, arrayFuturos[i])
-      }
-      
-    }
-   })
-   if(check.length == 0){
-      arrayFuturos.forEach( tarjeta => {
-      creaTarjeta(padreTarjeta, tarjeta)
-    })
-  }
-  
-})
 
 //para ir a details
 let urlDetails = new URL("http://127.0.0.1:5500/details.html")
@@ -321,6 +348,6 @@ let urlDetails = new URL("http://127.0.0.1:5500/details.html")
 
 function obtenerElementoUrl(id) {
   let ancor = document.getElementById(id)
-  ancor.href =  urlDetails + "?value="+id
+  ancor.href = urlDetails + "?value=" + id
   window.location.href = ancor.href
 }

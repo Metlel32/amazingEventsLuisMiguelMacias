@@ -282,16 +282,22 @@ arrayRec.forEach((e, i) => {
 })
 
 
-// // barra de busqueda
+ // barra de busqueda
 
 let buscar = document.getElementById("search")
 buscar.addEventListener("keyup", (e) => {
   filtrarTarjetas(arrayRec)
 })
 
+// los chechkbox b pro checked
+
 padreCheck.addEventListener("change", () => {
   filtrarTarjetas(arrayRec)
 })
+
+
+
+//filtrar el texto y los checked
 
 function filtrarTarjetas(array) {
   let textoBusqueda = buscar.value.toLowerCase()
@@ -311,6 +317,8 @@ function filtrarTarjetas(array) {
   }
 }
 
+
+// filtadro de las tarjetas por categoria si dos tarjetas tienen la misma categoria 
 function arrayCheck(array) {
   let categoriasAA = []
   let check = document.querySelectorAll("input[type=checkbox]:checked")
