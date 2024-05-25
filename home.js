@@ -240,7 +240,7 @@ let urlDetails = new URL("http://127.0.0.1:5500/details.html")
 
 function obtenerElementoUrl(id) {
   let tarjeta = document.getElementById(id)
-  tarjeta.href =  urlDetails + "?value="+id
+  tarjeta.href = urlDetails + "?value=" + id
   window.location.href = tarjeta.href
 }
 
@@ -282,72 +282,47 @@ arrayRec.forEach((e, i) => {
 })
 
 
-// barra de busqueda
+// // barra de busqueda
 
 let buscar = document.getElementById("search")
 buscar.addEventListener("keyup", (e) => {
-
-  let arrayBusqueda = buscar2(e, arrayRec)
-  
-  if (arrayBusqueda.length === 0) {
-    padreTarjeta.innerHTML = "<h2>Error en la busqueda, escriba nuevamente sus parametros</h2>"
-  }else{
-    padreTarjeta.innerHTML = ""
-    arrayBusqueda.forEach((ele) => creaTarjeta(padreTarjeta, ele))
-  }
-
-
-  
+  filtrarTarjetas(arrayRec)
 })
 
-function buscar2(texto, array) {
-  let arrayBusquedaFiltrado = array.filter(letra => letra.name.toLowerCase().includes(texto.target.value.toLowerCase()) || letra.description.toLowerCase().includes(texto.target.value.toLowerCase()))
-  
+padreCheck.addEventListener("change", () => {
+  filtrarTarjetas(arrayRec)
+})
 
-  return arrayBusquedaFiltrado
+function filtrarTarjetas(array) {
+  let textoBusqueda = buscar.value.toLowerCase()
+  let categoriasAA = arrayCheck(array)
+
+  let tarjetasFiltradas = array.filter(tarjeta => {
+    let cumpleBusqueda = tarjeta.name.toLowerCase().includes(textoBusqueda) || tarjeta.description.toLowerCase().includes(textoBusqueda)
+    let cumpleCategoria = categoriasAA.length === 0 || categoriasAA.includes(tarjeta.category)
+    return cumpleBusqueda && cumpleCategoria
+  });
+
+  if (tarjetasFiltradas.length === 0) {
+    padreTarjeta.innerHTML = "<h2 class='text-center'>Error en la busqueda, escriba nuevamente sus parametros</h2>"
+  } else {
+    padreTarjeta.innerHTML = ""
+    tarjetasFiltradas.forEach((tarjeta) => creaTarjeta(padreTarjeta, tarjeta))
+  }
 }
 
-
-
-//busqueda de check box
 function arrayCheck(array) {
   let categoriasAA = []
   let check = document.querySelectorAll("input[type=checkbox]:checked")
   check.forEach((checkbox) => {
-    let elemento = array.find((e) => e._id === checkbox.id);
+    let elemento = array.find((e) => e._id === checkbox.id)
     if (elemento && elemento.category) {
       categoriasAA.push(elemento.category)
     }
-  })
+  });
   return categoriasAA
 }
 
-padreCheck.addEventListener("change", () => {
-
-  let check = document.querySelectorAll("input[type=checkbox]:checked")
-
-  let categoriasAA = []
-  categoriasAA = arrayCheck(arrayRec)
-
-
-
-  // imprime tarjetas guaradads en el array de categorias
-  padreTarjeta.innerHTML = ""
-  categoriasAA.forEach(categoria => {
-    for (let i = 0; i < arrayRec.length; i++) {
-      if (arrayRec[i].category === categoria) {
-        creaTarjeta(padreTarjeta, arrayRec[i])
-      }
-    }
-  })
-
-
-  if (check.length == 0) {
-    arrayRec.forEach(tarjeta => {
-      creaTarjeta(padreTarjeta, tarjeta)
-    })
-  }
-})
 
 
 

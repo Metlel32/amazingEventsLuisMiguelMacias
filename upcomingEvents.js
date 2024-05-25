@@ -268,10 +268,15 @@ arrayFuturos.forEach((e) => {
 let buscar = document.getElementById("search")
 buscar.addEventListener("keyup", (e)=>{
 
-  
+
   let arrayBusqueda = arrayFuturos.filter( letra => letra.name.toLowerCase().includes(e.target.value.toLowerCase())|| letra.description.toLowerCase().includes(e.target.value.toLowerCase()) )
-  padreTarjeta.innerHTML = ""
-  arrayBusqueda.forEach((ele) => creaTarjeta(padreTarjeta, ele))
+ 
+  if (arrayBusqueda.length === 0) {
+    padreTarjeta.innerHTML = "<h2 class='text-center'>Error en la busqueda, escriba nuevamente sus parametros</h2>"
+  }else{
+    padreTarjeta.innerHTML = ""
+    arrayBusqueda.forEach((ele) => creaTarjeta(padreTarjeta, ele))
+  }
 })
 
 
