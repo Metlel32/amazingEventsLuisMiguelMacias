@@ -212,7 +212,7 @@ function creaTarjeta(padre, arr) {
     </div>
     <div class="card-footer d-flex justify-content-between">
         <h5 class="p-2">$ ${arr.price}</h5>
-        <a href="/details.html" class="btn btn-secondary btn-lg">Details</a>
+        <a href="#" onclick="obtenerElementoUrl('${arr._id}')" class="btn btn-secondary btn-lg">Details</a>
     </div>`
   padre.appendChild(nuevaTarjeta);
 }
@@ -310,4 +310,12 @@ divCheck.addEventListener("change", ()=>{
   
 })
 
+//para ir a details
+let urlDetails = new URL("http://127.0.0.1:5500/details.html")
 
+
+function obtenerElementoUrl(id) {
+  let ancor = document.getElementById(id)
+  ancor.href =  urlDetails + "?value="+id
+  window.location.href = ancor.href
+}
