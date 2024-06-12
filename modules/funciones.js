@@ -89,3 +89,4 @@ function arrayCheck(array) {
     return categoriasAA
   }
 
+  
