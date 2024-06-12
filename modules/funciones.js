@@ -90,3 +90,15 @@ function arrayCheck(array) {
   }
 
   
+// funcion para poner putno cada 3 numeros
+export function agregarPuntos(numero) {
+  var numeroStr = numero.toString();
+  var partes = [];
+  while (numeroStr.length > 3) {
+      partes.unshift(numeroStr.slice(-3));
+      numeroStr = numeroStr.slice(0, -3);
+  }
+  partes.unshift(numeroStr);
+  return partes.join('.');
+}
+
