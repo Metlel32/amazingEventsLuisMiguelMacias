@@ -1,3 +1,5 @@
+import { agregarPuntos } from "./modules/funciones.js"
+
 let url = new URL("https://aulamindhub.github.io/amazing-api/events.json")
 
 //mayor asistencia
@@ -118,7 +120,7 @@ fetch(url)
             let linea = document.createElement('tr')
             linea.innerHTML = `
                 <td>${e}</td>
-                <td >${preciosPorCategoria[e]*porcentajeAssitencia[e]} $</td>
+                <td >${agregarPuntos(preciosPorCategoria[e]*porcentajeAssitencia[e])} $</td>
                 <td> ${((porcentajeAssitencia[e]/count[e])*100).toFixed(2)}% </td>`
             tabla.appendChild(linea)
         })
@@ -189,7 +191,7 @@ fetch(url)
         let linea = document.createElement('tr')
         linea.innerHTML = `
             <td>${e}</td>
-            <td >${preciosPorCategoria[e]*porcentajeAssitencia[e]} $</td>
+            <td >${agregarPuntos(preciosPorCategoria[e]*porcentajeAssitencia[e])} $</td>
             <td> ${((porcentajeAssitencia[e]/count[e])*100).toFixed(2)}% </td>`
         tabla.appendChild(linea)
     })
