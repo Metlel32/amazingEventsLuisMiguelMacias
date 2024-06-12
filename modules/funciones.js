@@ -64,7 +64,7 @@ export function filtrarTarjetas(array, buscar) {
     });
   
     if (tarjetasFiltradas.length === 0) {
-      padreTarjeta.innerHTML = "<h2 class='text-center'>Error en la busqueda, escriba nuevamente sus parametros</h2>"
+      padreTarjeta.innerHTML = "<h2 class='text-center bg-danger'>Search error, please input your parameters again.</h2>"
     } else {
       padreTarjeta.innerHTML = ""
       tarjetasFiltradas.forEach((tarjeta) => creaTarjeta(padreTarjeta, tarjeta))
