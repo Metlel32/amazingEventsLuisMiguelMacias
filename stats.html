@@ -74,6 +74,9 @@
           <span class="visually-hidden">Next</span>
         </button>
     </div>
+
+
+    <!-- tabla-->
     <div class="container">
       <table class="table mb-0 mt-5 table-bordered border-black">
         <thead class="table-dark">
@@ -83,14 +86,14 @@
         </thead>
         <tbody>
           <tr>
-            <td>Events with highest % of assistance</td>
-            <td>Events whith lowest % of assistance</td>
-            <td>Events whith larger capacity</td>
+            <td class="bg-dark text-white">Events with highest % of assistance</td>
+            <td class="bg-dark text-white">Events whith lowest % of assistance</td>
+            <td class="bg-dark text-white">Events whith larger capacity</td>
           </tr>
           <tr>
-            <td> ..</td>
-            <td> ... </td>
-            <td> ...</td>
+            <td id="eventoMayorAsistencia"> </td>
+            <td id="eventoMenorAsistencia"> </td>
+            <td id="eventoMayorCapacidad"> </td>
           </tr>
         </tbody>
       </table>
@@ -101,22 +104,13 @@
             <th scope="col" colspan="3" class="text-center"> Upcoming events Statistics by category</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tbodyCategory">
           <tr>
-            <td>Categories</td>
-            <td>revenues</td>
-            <td>Porcentage of assistance</td>
+            <td class="bg-dark text-white">Categories</td>
+            <td class="bg-dark text-white">revenues</td>
+            <td class="bg-dark text-white">Porcentage of assistance</td>
           </tr>
-          <tr>
-            <td> ..</td>
-            <td> ... </td>
-            <td> ...</td>
-          </tr>
-          <tr>
-            <td> ..</td>
-            <td> ... </td>
-            <td> ...</td>
-          </tr>
+         
         </tbody>
       </table>
   
@@ -126,21 +120,11 @@
             <th scope="col" colspan="3" class="text-center "> Past events statistics by category</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Categories</td>
-            <td>revenues</td>
-            <td>Porcentage of assistance</td>
-          </tr>
-          <tr>
-            <td> ..</td>
-            <td> ... </td>
-            <td> ...</td>
-          </tr>
-          <tr>
-            <td> ..</td>
-            <td> ... </td>
-            <td> ...</td>
+        <tbody id="tbodyCategoryPast">
+          <tr >
+            <td class="bg-dark text-white">Categories</td>
+            <td class="bg-dark text-white">revenues</td>
+            <td class="bg-dark text-white">Porcentage of assistance</td>
           </tr>
         </tbody>
       </table>
@@ -169,6 +153,7 @@
       
 
     </footer>
+    <script src="stats.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
