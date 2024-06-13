@@ -85,10 +85,9 @@ fetch(url)
                 if (!preciosPorCategoria[e.category]) {
                     preciosPorCategoria[e.category] = 0
                 }
-                preciosPorCategoria[e.category] += e.price; 
+                preciosPorCategoria[e.category] += e.price *e.estimate; 
             }
         });
-
         // porcentaje de assitencia
 
 
@@ -120,7 +119,7 @@ fetch(url)
             let linea = document.createElement('tr')
             linea.innerHTML = `
                 <td>${e}</td>
-                <td >${agregarPuntos(preciosPorCategoria[e]*porcentajeAssitencia[e])} $</td>
+                <td >$ ${agregarPuntos(preciosPorCategoria[e])} </td>
                 <td> ${((porcentajeAssitencia[e]/count[e])*100).toFixed(2)}% </td>`
             tabla.appendChild(linea)
         })
@@ -156,7 +155,7 @@ fetch(url)
             if (!preciosPorCategoria[e.category]) {
                 preciosPorCategoria[e.category] = 0
             }
-            preciosPorCategoria[e.category] += e.price; 
+            preciosPorCategoria[e.category] += e.price *e.assistance; 
         }
     });
 
@@ -191,7 +190,7 @@ fetch(url)
         let linea = document.createElement('tr')
         linea.innerHTML = `
             <td>${e}</td>
-            <td >${agregarPuntos(preciosPorCategoria[e]*porcentajeAssitencia[e])} $</td>
+            <td > $ ${agregarPuntos(preciosPorCategoria[e])} </td>
             <td> ${((porcentajeAssitencia[e]/count[e])*100).toFixed(2)}% </td>`
         tabla.appendChild(linea)
     })
