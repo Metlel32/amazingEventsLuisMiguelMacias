@@ -117,10 +117,11 @@ fetch(url)
         category.forEach(e => {
             let tabla = document.getElementById('tbodyCategory')
             let linea = document.createElement('tr')
+            
             linea.innerHTML = `
-                <td>${e}</td>
-                <td >$ ${agregarPuntos(preciosPorCategoria[e])} </td>
-                <td> ${((porcentajeAssitencia[e]/count[e])*100).toFixed(1)}% </td>`
+                <td class="col-4">${e}</td>
+                <td class="text-center col-3" >$ ${agregarPuntos(preciosPorCategoria[e])} </td>
+                <td class="text-center col-3"> ${((porcentajeAssitencia[e]/count[e])*100).toFixed(1)}% </td>`
             tabla.appendChild(linea)
         })
 
@@ -189,9 +190,9 @@ fetch(url)
         let tabla = document.getElementById('tbodyCategoryPast')
         let linea = document.createElement('tr')
         linea.innerHTML = `
-            <td>${e}</td>
-            <td > $ ${agregarPuntos(preciosPorCategoria[e])} </td>
-            <td> ${((porcentajeAssitencia[e]/count[e])*100).toFixed(1)}% </td>`
+            <td class="col-4">${e}</td>
+            <td class="text-center col-3"> $ ${agregarPuntos(preciosPorCategoria[e])} </td>
+            <td class="text-center col-3"> ${((porcentajeAssitencia[e]/count[e])*100).toFixed(1)}% </td>`
         tabla.appendChild(linea)
     })
 
