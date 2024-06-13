@@ -35,8 +35,8 @@ fetch(url)
 
 
         });
-        mayorAsistencia.innerHTML = `${mayorPorcentaje[0].name} with ${mayorPorcentaje[0].assistance.toFixed(2)}% assitance`
-        menorAsistencia.innerHTML = `${menorPorcentaje[0].name} with ${menorPorcentaje[0].assistance.toFixed(2)}% assitance`
+        mayorAsistencia.innerHTML = `${mayorPorcentaje[0].name} with ${mayorPorcentaje[0].assistance.toFixed(1)}% assitance`
+        menorAsistencia.innerHTML = `${menorPorcentaje[0].name} with ${menorPorcentaje[0].assistance.toFixed(1)}% assitance`
 
 
 
@@ -120,7 +120,7 @@ fetch(url)
             linea.innerHTML = `
                 <td>${e}</td>
                 <td >$ ${agregarPuntos(preciosPorCategoria[e])} </td>
-                <td> ${((porcentajeAssitencia[e]/count[e])*100).toFixed(2)}% </td>`
+                <td> ${((porcentajeAssitencia[e]/count[e])*100).toFixed(1)}% </td>`
             tabla.appendChild(linea)
         })
 
@@ -191,7 +191,7 @@ fetch(url)
         linea.innerHTML = `
             <td>${e}</td>
             <td > $ ${agregarPuntos(preciosPorCategoria[e])} </td>
-            <td> ${((porcentajeAssitencia[e]/count[e])*100).toFixed(2)}% </td>`
+            <td> ${((porcentajeAssitencia[e]/count[e])*100).toFixed(1)}% </td>`
         tabla.appendChild(linea)
     })
 
